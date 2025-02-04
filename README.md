@@ -1,8 +1,2 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# DangerEye
+DangerEye is a community-driven safety platform that empowers individuals with real-time information about potential risks in their area. By combining official data with user-generated reports, DangerEye provides a comprehensive view of local safety conditions. Our mission is to create safer communities by fostering awareness and promoting responsible reporting.  We believe that access to timely and accurate safety information is a fundamental right.
