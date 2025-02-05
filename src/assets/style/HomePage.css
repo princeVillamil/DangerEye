@@ -1,90 +1,188 @@
-/* #root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
-  }
-  
-  @keyframes logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    a:nth-of-type(2) .logo {
-      animation: logo-spin infinite 20s linear;
-    }
-  }
-  
-  .card {
-    padding: 2em;
-  }
-  
-  .read-the-docs {
-    color: #888;
-  }
-   */
-   /* 1. Use a more-intuitive box-sizing model */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 *, *::before, *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+body {
+  /* 3. Add accessible line-height */
+  line-height: 1.5;
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 5. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 7. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/* 9. Create a root stacking context */
+#root, #__next {
+  isolation: isolate;
+}
+
+.hero-section body {
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-section .hero-section {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 2rem;
+}
+
+.hero-section .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 1.5rem;
+  max-width: 1920px;
+  height: calc(100vh - 96px);
+  margin: 0 auto;
+}
+
+.hero-section .content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto 10% auto;
+}
+
+.hero-section .content h1 {
+  font-size: 6rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.hero-section .highlight {
+  color: #7c3aed;
+}
+
+.hero-section .content p,
+.hero-section .content h1,
+.hero-section .content h3 {
+  color: #6D2424;
+  text-align: center;
+}
+
+.hero-section .content h3 {
+  font-weight: 200;
+  font-size: 2.5rem;
+}
+
+.hero-section .content p {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.hero-section .break-line {
+  display: none;
+}
+
+.hero-section .content a {
+  display: inline;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  height: 60px;
+  text-decoration: none;
+  border-radius: 3rem;
+  background-color: black;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.hero-section .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.hero-section .image-container img {
+  /* height: auto;
+  max-width: 1090px; */
+  object-fit: cover;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+  .hero-section .break-line {
+    display: inline;
   }
-  
-  /* 2. Remove default margin */
-  * {
-    margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .hero-section .container {
+    flex-direction: row;
+    justify-content: space-between;
   }
-  
-  body {
-    /* 3. Add accessible line-height */
-    line-height: 1.5;
-    /* 4. Improve text rendering */
-    -webkit-font-smoothing: antialiased;
+
+  .hero-section .content {
+    text-align: left;
+    max-width: 50%;
   }
-  
-  /* 5. Improve media defaults */
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
+
+  .hero-section .button-group {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: start;
   }
-  
-  /* 6. Inherit fonts for form controls */
-  input, button, textarea, select {
-    font: inherit;
+
+  .hero-section .image-container {
+    margin-top: 0;
   }
-  
-  /* 7. Avoid text overflows */
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
+
+  .hero-section .image-container img {
+    height: 24rem;
   }
-  
-  /* 8. Improve line wrapping */
-  p {
-    text-wrap: pretty;
+}
+
+@media (min-width: 1280px) {
+  .hero-section .image-container img {
+    height: 28rem;
   }
-  h1, h2, h3, h4, h5, h6 {
-    text-wrap: balance;
+}
+
+@media (min-width: 1536px) {
+  .hero-section .image-container img {
+    height: 32rem;
   }
-  
-  /*
-    9. Create a root stacking context
-  */
-  #root, #__next {
-    isolation: isolate;
-  }
+}
+
