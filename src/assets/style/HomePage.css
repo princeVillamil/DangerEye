@@ -50,15 +50,17 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
 }
 
-.hero-section .hero-section {
+.hero-section {
   background-color: #f3f4f6;
   color: #1f2937;
   padding: 2rem;
 }
 
-.hero-section .container {
+.hero-section .container,
+.emergency-section .container,
+.notes-section .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
 
   padding: 1.5rem;
@@ -89,7 +91,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-section .content p,
 .hero-section .content h1,
-.hero-section .content h3 {
+.hero-section .content h3,
+.notes-section h1,
+.notes-section p,
+.map-section h1,
+.map-section p  {
   color: #6D2424;
   text-align: center;
 }
@@ -111,7 +117,9 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-.hero-section .content a {
+.hero-section .content a, 
+.notes-section a,
+.map-section a {
   display: inline;
   margin: 0 auto;
   padding: 0.75rem 2rem;
@@ -186,3 +194,136 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+
+.emergency-section .container {
+  max-height: 60vh;
+
+}
+
+.emergency-section .text-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+}
+
+.emergency-section h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5b1b1b;
+}
+
+.emergency-section h1 span {
+  color: #9a1c1c;
+}
+
+.emergency-section p {
+  color: #666;
+  margin: 10px 0;
+}
+
+.emergency-section .cta-button {
+  background: black;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.emergency-section .cta-button:hover {
+  background: #444;
+}
+.emergency-section .image-container {
+  position: relative;
+}.roed-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  height: auto;
+  bottom: 0;
+  z-index: 1;
+}.ambulance {
+  position: absolute;
+  /* width: 250px;
+  bottom: 10px; */
+  /* left: -300px; Start off-screen */
+  z-index: 2;
+}
+.emergency-section .image-container img {
+  max-width: 280px;
+  height: auto;
+}
+
+
+
+
+
+/* Notes Section */
+.notes-section .container{
+  justify-content: space-between;
+}
+.notes-left,
+.notes-right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.notes-left img{
+  width: 820px;
+}
+.notes-right h1 {
+  font-size: 5rem;
+  font-weight: bold;
+  line-height: 1.2;
+}.notes-right p {
+  max-width: 80%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  font-weight: 200;
+  font-style: italic;
+}
+
+
+/* Maps Section */
+.map-section .container {
+  display: flex;
+  position: relative;
+
+  padding: 1.5rem;
+  max-width: 1920px;
+  height: 100vh;
+  margin: 0 auto;
+}.mapOverlay{
+  position: absolute;
+  z-index: -2;
+}.mapOverlay img{
+  width: 580px;
+  left: 0;
+  top: 0;
+}.map-content{
+  z-index:-1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}.map-section h1{
+  font-size: 4rem;
+  /* font-size: 6rem; */
+  font-weight: bold;
+  line-height: 1.2;
+}.map-section p{
+  /* font-size: 10rem; */
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  font-weight: 200;
+  font-style: italic;
+}
