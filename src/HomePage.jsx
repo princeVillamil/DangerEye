@@ -55,7 +55,7 @@ const HomePage = () =>{
                 Add notes to the map
               </h1>
               <p>unique functionality to inform other people about the dangerous & hazardous area</p>
-              <a href="#" src="btn">Explore the map</a>
+              <a href="#" src="btn">Try it now!</a>
             </div>
           </div>
         </section>

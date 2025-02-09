@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+#root, #__next {
+  isolation: isolate;
+}
+
+
+.releaseNotesPageContainer {
+  font-family: "Poppins", sans-serif;
+
+}
+
+
+/* About Section */
+.releaseNotes-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.releaseNotes-section .container{
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #6D2424;
+  /* text-align: center; */
+
+  padding: 1.5rem;
+  max-width: 1920px;
+  min-height: calc(100vh - 96px);
+}
+.releaseNotes-section h1{
+  font-size: 8rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 5rem 0 3rem 0;
+}
+/* .releaseNotes-section p{
+  text-align: justify;
+  color: black;
+  font-size: 2rem;
+  width: 100%;
+  overflow: hidden;
+
+
+}.releaseNotes-section span{
+  font-weight: bold;
+} */
+.releaseNotes-container{
+  color: black;
+
+}.releaseNotes-section{
+  margin-bottom: 5rem;
+}.releaseNotes-card{
+  padding: 5rem 0 5rem 0;
+  border-bottom: 1px solid black;
+}.releaseNotes-card:first-child{
+  padding-top: 0;
+}.releaseNotes-card h2{
+  font-size: 2.1rem;
+}.releaseNotes-card h4{
+  margin: 8px 0 5px 0;
+  font-style: italic;
+  font-size: 1.25rem;
+}.releaseNotes-card p{
+  font-size: 1.25rem;
+  font-weight: light;
+}.releaseNotes-card span{
+  font-weight: bold;
+}
+
+
+
+
+
+
+
