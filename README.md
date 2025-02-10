@@ -1,0 +1,2 @@
+# DangerEye
+DangerEye is a community-driven safety platform that empowers individuals with real-time information about potential risks in their area. By combining official data with user-generated reports, DangerEye provides a comprehensive view of local safety conditions. Our mission is to create safer communities by fostering awareness and promoting responsible reporting.  We believe that access to timely and accurate safety information is a fundamental right.
