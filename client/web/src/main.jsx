@@ -11,8 +11,8 @@ import CookiePolicyPage from './CookiePolicyPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <AboutPage /> */}
     {/* <HomePage/> */}
+    {/* <AboutPage /> */}
     {/* <ManifestoPage/> */}
     {/* <ReleaseNotesPage/> */}
     {/* <TermsOfUse/> */}
