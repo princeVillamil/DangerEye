@@ -31,19 +31,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-.releaseNotesPageContainer {
+.termsOfUsePageContainer {
   font-family: "Poppins", sans-serif;
 
 }
 
 
 /* About Section */
-.releaseNotes-section{
+.termsOfUse-section{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.releaseNotes-section .container{
+.termsOfUse-section .container{
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -56,13 +56,13 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 1920px;
   min-height: calc(100vh - 96px);
 }
-.releaseNotes-section h1{
+.termsOfUse-section h1{
   font-size: 8rem;
   font-weight: bold;
   line-height: 1.2;
   margin: 5rem 0 3rem 0;
 }
-/* .releaseNotes-section p{
+/* .termsOfUse-section p{
   text-align: justify;
   color: black;
   font-size: 2rem;
@@ -70,37 +70,37 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 
 
-}.releaseNotes-section span{
+}.termsOfUse-section span{
   font-weight: bold;
 } */
-.releaseNotes-container{
+.termsOfUse-container{
   color: black;
 
-}.releaseNotes-section{
+}.termsOfUse-section{
   margin-bottom: 5rem;
-}.releaseNotes-card{
+}.termsOfUse-card{
   padding: 5rem 0 5rem 0;
-  border-bottom: 1px solid black;
-}.releaseNotes-card:first-child{
+}.termsOfUse-card:first-child{
   padding-top: 0;
-}.releaseNotes-card h2{
+}.termsOfUse-card h2{
   font-size: 2.1rem;
-}.releaseNotes-card h4{
-  margin: 8px 0 5px 0;
-  font-style: italic;
-  font-size: 1.25rem;
-}.releaseNotes-card p{
+}.termsOfUse-card > p{
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}.termsOfUse-card p{
   font-size: 1.25rem;
   font-weight: light;
-}.releaseNotes-card span{
+}.termsOfUse-card span{
   font-weight: bold;
-}.releaseNotes-card ul{
+}.termsOfUse-card ul{
   display: flex;
   flex-direction: column;
   gap: 16px;
+}.cookiePolicy-card:first-child{
+  padding-bottom: 1.5rem;
+}.cookiePolicy-card:last-child{
+  padding-top: 0rem;
 }
-
-
 
 
 
