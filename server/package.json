@@ -1,5 +1,21 @@
 {
   "dependencies": {
-    "firebase": "^11.3.0"
+    "firebase": "^11.3.0",
+  "name": "server",
+  "version": "1.0.0",
+  "description": "<!-- Server Folder Readme file -->",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
