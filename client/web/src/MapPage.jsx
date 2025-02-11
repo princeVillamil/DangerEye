@@ -1,68 +1,37 @@
-import React, { useEffect } from 'react';
-import './assets/style/MapPage.css'// Ensure this path is correct
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import React from 'react';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
-import 'leaflet-control-geocoder';
-import 'leaflet.locatecontrol';
-import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import './assets/style/MapPage.css'
 
-// Component to add controls
-function MapControls() {
-  const map = useMap();
-
-  useEffect(() => {
-    // Add Locate Control
-    const locateControl = L.control.locate({
-      position: 'topright',
-      drawCircle: true,
-      keepCurrentZoomLevel: true,
-      showPopup: false,
-      strings: {
-        title: "Show my location"
-      },
-      locateOptions: {
-        enableHighAccuracy: true
-      }
-    }).addTo(map);
-
-    // Add Geocoder Control
-    if (typeof L.Control.Geocoder !== 'undefined') {
-      const geocoder = L.Control.Geocoder.nominatim();
-      L.Control.geocoder({
-        defaultMarkGeocode: false,
-        geocoder
-      }).on('markgeocode', function(e) {
-        const bbox = e.geocode.bbox;
-        const poly = L.polygon([
-          [bbox.getSouthEast().lat, bbox.getSouthEast().lng],
-          [bbox.getNorthEast().lat, bbox.getNorthEast().lng],
-          [bbox.getNorthWest().lat, bbox.getNorthWest().lng],
-          [bbox.getSouthWest().lat, bbox.getSouthWest().lng]
-        ]).addTo(map);
-        map.fitBounds(poly.getBounds());
-      }).addTo(map);
-    }
-  }, [map]);
-
-  return null;
-}
+const customIcon = new L.Icon({
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
 
 const MapPage = () => {
   return (
-    <MapContainer 
-      className="map-container" // Using class instead of id
-      center={[20, 0]} 
-      zoom={2} 
-    >
-      <TileLayer
-        url="https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=M5ISu0vuXHGPPTeGHPw2"
-        attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-      />
-      <MapControls />
-    </MapContainer>
+    <div className="map-wrapper">
+      <MapContainer 
+        center={[51.505, -0.09]} 
+        zoom={13} 
+        scrollWheelZoom={true} 
+        className="map-container"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[51.505, -0.09]} icon={customIcon}>
+          <Popup>
+            You are here! <br /> (London example)
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </div>
   );
 };
 
-export default MapPage;
+export default MapPage

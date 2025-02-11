@@ -1,5 +1,4 @@
 // import { useState } from 'react'
-
 import './assets/style/HomePage.css'
 import FooterComponent from './FooterComponent.jsx'
 import HeaderComponent from './HeaderComponent.jsx'
@@ -9,6 +8,7 @@ import ambulanceIMG from './assets/imgs/ambulanceIMG.png'
 import roedIMG from './assets/imgs/roedIMG.png'
 import notesIMG from './assets/imgs/notesIMG.png'
 import treusuremapIMG from './assets/imgs/treusuremapIMG.png'
+import MapPage from './MapPage.jsx';
 
 const HomePage = () =>{
   return (
@@ -27,7 +27,7 @@ const HomePage = () =>{
                 DangerEye
               </h1>
               <p>Your no. 1 safety app for your daily travel.</p>
-              <a href="#" src="btn">Explore the map</a>
+              <a href="/map-page" src="btn">Explore the map</a>
             </div>
           </div>
         </section>
