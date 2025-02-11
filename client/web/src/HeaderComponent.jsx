@@ -23,8 +23,8 @@ const HeaderComponent = () => {
                 </div>
                 <div className="auth">
                     <a href="#" className="menuRight-link menuRight-linkLine">Contact Us</a>
-                    <a href="#" className="menuRight-link">Log In</a>
-                    <a href="#" className="login-button">Sign up</a>
+                    <a href="/login" className="menuRight-link">Log In</a>
+                    <a href="/register" className="login-button">Sign up</a>
                 </div>
             </div>
         </header>
