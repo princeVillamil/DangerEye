@@ -48,7 +48,6 @@ h1, h2, h3, h4, h5, h6 {
 
   padding: 1.5rem;
   max-width: 1920px;
-  /* height: calc(100vh - 96px); */
   margin: 0 auto 5% auto;
 }.manifesto-section h1{
   font-size: 8rem;
@@ -81,15 +80,13 @@ h1, h2, h3, h4, h5, h6 {
     gap: 25px;
     flex-direction: row;
     width: 50%;
-}.pfp-card{
-    /* max-width: 200px; */
 }.pfp-card img{
     width: 150px;
     height: 150px;
     overflow: hidden;
     border-radius: 100%;
     object-fit: cover;
-    object-position: 50% 50%;;
+    object-position: 50% 50%;
     
 }.pfp-card h2{
     color: black;

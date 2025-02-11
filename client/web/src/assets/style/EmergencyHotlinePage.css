@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+#root, #__next {
+  isolation: isolate;
+}
+
+
+.releaseNotesPageContainer {
+  font-family: "Poppins", sans-serif;
+
+}
+
+
+/* EmergencyHotline Page */
+.container {
+  padding: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: #1a202c; /* dark:text-gray-800 */
+}
+
+.heading {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.invoice-table {
+  width: 100%;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.table-header {
+  background-color: #e2e8f0; /* dark:bg-gray-300 */
+}
+
+.table-row {
+  text-align: left;
+}
+
+.table-cell {
+  padding: 0.75rem;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.subtext {
+  color: #4a5568; /* dark:text-gray-600 */
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  background-color: #7c3aed; /* dark:bg-violet-600 */
+  color: #f7fafc; /* dark:text-gray-50 */
+}
