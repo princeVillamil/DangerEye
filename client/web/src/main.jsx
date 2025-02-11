@@ -11,6 +11,7 @@ import CookiePolicyPage from './CookiePolicyPage.jsx';
 import EmergencyHotlinePage from './EmergencyHotlinePage.jsx';
 import LoginPage from './LoginPage.jsx';
 import RegisterPage from './RegisterPage.jsx';
+import MapPage from './MapPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -26,6 +27,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/cookie-policy" element={<CookiePolicyPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/map-page" element={<MapPage/>} />
       </Routes>
     </Router>
   </StrictMode>

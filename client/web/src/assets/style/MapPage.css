@@ -1,0 +1,27 @@
+.leaflet-default-icon-path {
+    background-image: url(https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png);
+  }
+  
+  .leaflet-default-shadow-path {
+    background-image: url(https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png);
+  }
+
+#map {
+    height: 100vh; /* Full viewport height */
+    width: 100%;   /* Full width */
+  }
+  .map-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1; /* Ensures the map is above other elements */
+  }
+  
+  .leaflet-container {
+    background: #f0f0f0; /* Fallback background in case tiles don't load */
+  }
+  

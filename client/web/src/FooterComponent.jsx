@@ -9,9 +9,7 @@ const FooterComponent = () => {
     const currentYear = new Date().getFullYear();
     
     const handleNavigation = (path) => {
-        // Navigate to the path
         navigate(path);
-        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -21,7 +19,7 @@ const FooterComponent = () => {
         links: [
           { name: "Android & IOS", path: "/apps/mobile" },
           { name: "Desktop", path: "/apps/desktop" },
-          { name: "Web Explorer", path: "/apps/web" }
+          { name: "Web Explorer", path: "/map-page" }
         ]
       },
       { 
