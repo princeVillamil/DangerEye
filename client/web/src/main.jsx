@@ -11,12 +11,12 @@ import CookiePolicyPage from './CookiePolicyPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <HomePage/> */}
+    <HomePage/>
     {/* <AboutPage /> */}
     {/* <ManifestoPage/> */}
     {/* <ReleaseNotesPage/> */}
     {/* <TermsOfUse/> */}
     {/* <PrivacyPolicyPage/> */}
-    <CookiePolicyPage/>
+    {/* <CookiePolicyPage/> */}
   </StrictMode>,
 )
