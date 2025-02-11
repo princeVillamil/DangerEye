@@ -8,6 +8,9 @@ import ReleaseNotesPage from './ReleaseNotesPage.jsx'
 import TermsOfUse from './TermsOfUsePage.jsx'
 import PrivacyPolicyPage from './PrivacyPolicyPage.jsx'
 import CookiePolicyPage from './CookiePolicyPage.jsx'
+import EmergencyHotlinePage from './EmergencyHotlinePage.jsx'
+import LoginPage from './LoginPage.jsx'
+import RegisterPage from './RegisterPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +20,9 @@ createRoot(document.getElementById('root')).render(
     {/* <ReleaseNotesPage/> */}
     {/* <TermsOfUse/> */}
     {/* <PrivacyPolicyPage/> */}
-    {/* <CookiePolicyPage/> */}
+    {/* {/* <CookiePolicyPage/> */}
+    {/* <EmergencyHotlinePage/> */}
+    {/* <LoginPage/> */}
+    {/* { <RegisterPage/> } */}
   </StrictMode>,
 )
