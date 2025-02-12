@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
+import dangereyeLogo from './assets/imgs/dangereye-logo-1.png';
+import dangereyeredpin from './assets/imgs/dangereye-red-pin.png';
 import { useNavigate } from 'react-router-dom';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './assets/style/MapPage.css';
@@ -13,6 +15,7 @@ const MapPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [markers, setMarkers] = useState([]); // State for markers
   const navigate = useNavigate();
 
   const mapStyles = {
@@ -40,20 +43,19 @@ const MapPage = () => {
           
           map.flyTo({
             center: [longitude, latitude],
-            zoom: 16,
+            zoom: 19,
             essential: true,
             duration: 2000
           });
 
           new maplibregl.Marker({
-            color: '#FF0000'
+            color: '#4D1717'
           })
             .setLngLat([longitude, latitude])
             .addTo(map);
 
           new maplibregl.Popup()
             .setLngLat([longitude, latitude])
-            .setHTML(`<p>You are here!<br>Lat: ${latitude.toFixed(4)}<br>Lng: ${longitude.toFixed(4)}</p>`)
             .addTo(map);
         },
         (error) => {
@@ -70,8 +72,30 @@ const MapPage = () => {
     }
 
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
-    return () => map.remove();
+
+    map.on('contextmenu', handleMapRightClick);
+
+    return () => {
+      map.off ('contextmenu', handleMapRightClick); 
+      map.remove();
+    };
   }, [currentStyle]);
+
+  const handleMapRightClick = (event) => {
+    event.preventDefault(); 
+    const { lng, lat } = event.lngLat;
+
+    const note = prompt("Enter a note for this location:");
+    if (note) {
+      const newMarker = { lng, lat, note };
+      setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
+
+      new maplibregl.Marker()
+        .setLngLat([lng, lat])
+        .setPopup(new maplibregl.Popup().setText(note)) 
+        .addTo(mapRef.current);
+    }
+  };
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
@@ -90,27 +114,36 @@ const MapPage = () => {
     setIsSearching(false);
   };
 
+  const createMarkerElement = () => {
+    const element = document.createElement('div');
+    element.className = ('search-marker');
+    return element;
+  };
+
   const handleLocationSelect = (location) => {
     const [lng, lat] = location.center;
-    
+  
+    // Remove existing search markers
     const markers = document.getElementsByClassName('search-marker');
-    while(markers[0]) {
+    while (markers[0]) {
       markers[0].parentNode.removeChild(markers[0]);
     }
-
-    new maplibregl.Marker({
-      color: '#4B0082',
-      className: 'search-marker'
-    })
+  
+    // Create a new marker with the custom element
+    const markerElement = createMarkerElement();
+    
+    new maplibregl.Marker({ element: markerElement })
       .setLngLat([lng, lat])
       .addTo(mapRef.current);
-
+  
+    // Fly to the selected location
     mapRef.current.flyTo({
       center: [lng, lat],
       zoom: 14,
       essential: true
     });
 
+    // Clear search results and input
     setSearchResults([]);
     setSearchQuery('');
   };
@@ -118,9 +151,8 @@ const MapPage = () => {
   return (
     <div className="map-container-wrapper">
       <div ref={mapContainerRef} className="map-container" />
-      
       <button onClick={() => navigate('/')} className="home-button">
-        Home
+        <img src={dangereyeLogo} alt="dangereyeLogo Logo" className="home-icon" />
       </button>
 
       <div className="search-container">
@@ -175,6 +207,18 @@ const MapPage = () => {
           {locationError}
         </div>
       )}
+
+      {/* Displaying the notes */}
+      <div className="notes-container">
+        <h3>Pinned Locations</h3>
+        <ul>
+          {markers.map((marker, index) => (
+            <li key={index}>
+              {marker.note} - [{marker.lng.toFixed(4)}, {marker.lat.toFixed(4)}]
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

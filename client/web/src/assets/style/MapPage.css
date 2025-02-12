@@ -1,3 +1,10 @@
+/* Applying Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+  }
+
 /* Base styles */
 html, body {
   margin: 0;
@@ -35,12 +42,16 @@ html, body {
 .home-button:hover {
   background-color: #f3f4f6;
 }
+.home-icon {
+  width: 125px;
+  height: 35px; 
+}
 
 /* Search container */
 .search-container {
   position: absolute;
-  top: 1rem;
-  left: 8rem;
+  top: 18px;
+  left: 13rem;
   z-index: 10;
 }
 
@@ -49,10 +60,12 @@ html, body {
 }
 
 .search-input {
-  width: 16rem;
+  width: 20rem;
+  height: 40px;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.5rem;
+  background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   outline: none;
 }
@@ -80,7 +93,6 @@ html, body {
   cursor: not-allowed;
 }
 
-/* Search results */
 .search-results {
   position: absolute;
   margin-top: 0.5rem;
@@ -125,7 +137,6 @@ html, body {
   background-color: #f3f4f6;
 }
 
-/* Error message */
 .error-message {
   position: absolute;
   bottom: 1rem;
@@ -135,4 +146,50 @@ html, body {
   border: 1px solid #ef4444;
   color: #dc2626;
   border-radius: 0.5rem;
+}
+
+/* Notes Con */
+.notes-container {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: white; /* White background for notes */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  padding: 1rem; /* Padding around the notes */
+  max-height: 200px; /* Limit height */
+  overflow-y: auto; /* Scroll if too many notes */
+  z-index: 10; /* Ensure it is above the map */
+}
+
+.notes-container h3 {
+  margin: 0 0 0.5rem; /* Margin for heading */
+  font-size: 1.2rem; /* Font size for heading */
+}
+
+.notes-container ul {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.notes-container li {
+  padding: 0.5rem; /* Padding for each note */
+  border-bottom: 1px solid #eee; /* Light border between notes */
+}
+
+.notes-container li:last-child {
+  border-bottom: none; /* Remove border for last note */
+}
+
+/*pin*/
+
+.search-marker {
+  cursor: pointer;
+  transform: translate(-50%, -100%);  /* Center the pin point */
+}
+
+.search-marker img {
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));  /* Optional: adds shadow */
 }
