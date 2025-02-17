@@ -12,6 +12,7 @@ import EmergencyHotlinePage from './EmergencyHotlinePage.jsx';
 import LoginPage from './LoginPage.jsx';
 import RegisterPage from './RegisterPage.jsx';
 import MapPage from './MapPage.jsx';
+import MapNote from './MapNote.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/map" element={<MapPage />} />
+        <Route path="/map-note" element={<MapNote />}/>
       </Routes>
     </Router>
   </StrictMode>

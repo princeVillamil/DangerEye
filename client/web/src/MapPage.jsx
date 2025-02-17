@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import maplibregl from 'maplibre-gl';
-import dangereyeLogo from './assets/imgs/dangereye-logo-1.png';
-import dangereyeredpin from './assets/imgs/dangereye-red-pin.png';
-import { useNavigate } from 'react-router-dom';
+import MapNote from './MapNote';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './assets/style/MapPage.css';
+import dangereyeLogo from './assets/imgs/dangereye-logo-1.png';
+import dangereyepin from './assets/imgs/dangereye-red-pin.png';
+import { useNavigate } from 'react-router-dom';
 
 const MapPage = () => {
   const mapContainerRef = useRef(null);
@@ -15,7 +17,8 @@ const MapPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [markers, setMarkers] = useState([]); // State for markers
+  const [markers, setMarkers] = useState([]);
+  const searchTimeoutRef = useRef(null);
   const navigate = useNavigate();
 
   const mapStyles = {
@@ -29,8 +32,8 @@ const MapPage = () => {
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
       style: mapStyles[currentStyle],
-      center: [0, 0],
-      zoom: 2,
+      center: userLocation || [0, 0],
+      zoom: userLocation ? 19 : 2,
     });
 
     mapRef.current = map;
@@ -53,10 +56,6 @@ const MapPage = () => {
           })
             .setLngLat([longitude, latitude])
             .addTo(map);
-
-          new maplibregl.Popup()
-            .setLngLat([longitude, latitude])
-            .addTo(map);
         },
         (error) => {
           setLocationError(error.message);
@@ -72,78 +71,167 @@ const MapPage = () => {
     }
 
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
-
     map.on('contextmenu', handleMapRightClick);
 
     return () => {
-      map.off ('contextmenu', handleMapRightClick); 
+      map.off('contextmenu', handleMapRightClick);
       map.remove();
     };
   }, [currentStyle]);
 
   const handleMapRightClick = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     const { lng, lat } = event.lngLat;
-
-    const note = prompt("Enter a note for this location:");
-    if (note) {
-      const newMarker = { lng, lat, note };
-      setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
-
-      new maplibregl.Marker()
-        .setLngLat([lng, lat])
-        .setPopup(new maplibregl.Popup().setText(note)) 
-        .addTo(mapRef.current);
-    }
+  
+    const newMarker = { 
+      lng, 
+      lat, 
+      note: '',
+      id: Date.now(),
+      timestamp: new Date().toLocaleString() 
+    };
+  
+    // Create custom marker element
+    const markerElement = document.createElement('div');
+    markerElement.className = 'custom-marker';
+    const markerImg = document.createElement('img');
+    markerImg.src = dangereyepin;
+    markerImg.alt = 'Location marker';
+    markerElement.appendChild(markerImg);
+  
+    const popupContainer = document.createElement('div');
+    const popup = new maplibregl.Popup({ 
+      offset: [0, -20], 
+      closeButton: false,
+      closeOnClick: false,
+      maxWidth: '300px'
+    }).setLngLat([lng, lat]);
+  
+    const marker = new maplibregl.Marker({
+      element: markerElement,
+      anchor: 'bottom'
+    })
+    .setLngLat([lng, lat])
+    .addTo(mapRef.current);
+  
+    const handleSave = (newText) => {
+      newMarker.note = newText;
+      setMarkers(prevMarkers => 
+        prevMarkers.map(m => m.id === newMarker.id ? {...m, note: newText} : m)
+      );
+      popup.remove(); // Close popup after saving
+    };
+  
+    const handleClose = () => {
+      ReactDOM.unmountComponentAtNode(popupContainer);
+      popup.remove();
+  
+      // Only remove the marker if no note was added
+      if (!newMarker.note.trim()) {
+        marker.remove();
+        setMarkers(prevMarkers => prevMarkers.filter(m => m.id !== newMarker.id));
+      }
+    };
+  
+    setMarkers(prevMarkers => [...prevMarkers, newMarker]);
+  
+    ReactDOM.render(
+      <MapNote 
+        onClose={handleClose}
+        onSave={handleSave}
+      />,
+      popupContainer
+    );
+  
+    popup.setDOMContent(popupContainer)
+      .addTo(mapRef.current);
+  
+    // Add click handler to show popup with contents when marker is clicked
+    markerElement.addEventListener('click', () => handleMarkerClick(newMarker));
   };
+  
+  // New function to handle left-click on marker
+  const handleMarkerClick = (markerData) => {
+    const existingPopup = document.querySelector('.marker-popup-content');
+    if (existingPopup) existingPopup.remove(); 
+  
+    const popupContent = document.createElement('div');
+    popupContent.className = 'marker-popup-content';
+    popupContent.innerHTML = `
+      <div class="marker-popup">
+        <h4>${markerData.note}</h4>
+        <p>Location: ${markerData.lng.toFixed(4)}, ${markerData.lat.toFixed(4)}</p>
+        <p>Added: ${markerData.timestamp}</p>
+      </div>
+    `;
+  
+    new maplibregl.Popup({ 
+      offset: [0, -20],
+      closeButton: true
+    })
+      .setLngLat([markerData.lng, markerData.lat])
+      .setDOMContent(popupContent)
+      .addTo(mapRef.current);
+  };
+  
 
   const handleSearch = async () => {
-    if (!searchQuery.trim()) return;
-    
-    setIsSearching(true);
-    try {
-      const response = await fetch(
-        `https://api.maptiler.com/geocoding/${encodeURIComponent(searchQuery)}.json?key=M5ISu0vuXHGPPTeGHPw2`
-      );
-      const data = await response.json();
-      setSearchResults(data.features);
-    } catch (error) {
-      console.error('Search error:', error);
-      setLocationError('Search failed. Please try again.');
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
     }
-    setIsSearching(false);
+    
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = setTimeout(async () => {
+      setIsSearching(true);
+      try {
+        const response = await fetch(
+          `https://api.maptiler.com/geocoding/${encodeURIComponent(searchQuery)}.json?key=M5ISu0vuXHGPPTeGHPw2`
+        );
+        if (!response.ok) {
+          throw new Error('Search request failed');
+        }
+        const data = await response.json();
+        setSearchResults(data.features || []);
+      } catch (error) {
+        console.error('Search error:', error);
+        setLocationError('Search failed. Please try again.');
+      } finally {
+        setIsSearching(false);
+      }
+    }, 300);
   };
 
-  const createMarkerElement = () => {
-    const element = document.createElement('div');
-    element.className = ('search-marker');
-    return element;
-  };
+  useEffect(() => {
+    handleSearch();
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [searchQuery]);
 
   const handleLocationSelect = (location) => {
     const [lng, lat] = location.center;
-  
-    // Remove existing search markers
-    const markers = document.getElementsByClassName('search-marker');
-    while (markers[0]) {
-      markers[0].parentNode.removeChild(markers[0]);
-    }
-  
-    // Create a new marker with the custom element
-    const markerElement = createMarkerElement();
     
-    new maplibregl.Marker({ element: markerElement })
-      .setLngLat([lng, lat])
-      .addTo(mapRef.current);
-  
-    // Fly to the selected location
     mapRef.current.flyTo({
       center: [lng, lat],
       zoom: 14,
       essential: true
     });
 
-    // Clear search results and input
+    const marker = new maplibregl.Marker()
+      .setLngLat([lng, lat])
+      .addTo(mapRef.current);
+
+    const popup = new maplibregl.Popup({ offset: 25 })
+      .setLngLat([lng, lat])
+      .setHTML(`<h3>${location.place_name}</h3>`)
+      .addTo(mapRef.current);
+
     setSearchResults([]);
     setSearchQuery('');
   };
@@ -161,17 +249,10 @@ const MapPage = () => {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
             placeholder="Search location..."
             className="search-input"
           />
-          <button
-            onClick={handleSearch}
-            disabled={isSearching}
-            className="search-button"
-          >
-            {isSearching ? '...' : '🔍'}
-          </button>
+          {isSearching && <div className="search-loading">Searching...</div>}
         </div>
 
         {searchResults.length > 0 && (
@@ -208,13 +289,14 @@ const MapPage = () => {
         </div>
       )}
 
-      {/* Displaying the notes */}
       <div className="notes-container">
         <h3>Pinned Locations</h3>
         <ul>
-          {markers.map((marker, index) => (
-            <li key={index}>
-              {marker.note} - [{marker.lng.toFixed(4)}, {marker.lat.toFixed(4)}]
+          {markers.map((marker) => (
+            <li key={marker.id}>
+              <h4>{marker.note}</h4>
+              <p>Location: {marker.lng.toFixed(4)}, {marker.lat.toFixed(4)}</p>
+              <p>Added: {marker.timestamp}</p>
             </li>
           ))}
         </ul>
