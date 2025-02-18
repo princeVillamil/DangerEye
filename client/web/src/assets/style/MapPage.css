@@ -148,50 +148,50 @@ html, body {
   border-radius: 0.5rem;
 }
 
-/* Notes Con */
+
 .notes-container {
   position: absolute;
   bottom: 1rem;
   left: 1rem;
-  background-color: white; /* White background for notes */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 0.5rem; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  padding: 1rem; /* Padding around the notes */
-  max-height: 200px; /* Limit height */
-  overflow-y: auto; /* Scroll if too many notes */
-  z-index: 10; /* Ensure it is above the map */
+  background-color: white; 
+  border: 1px solid #ccc; 
+  border-radius: 0.5rem; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem; 
+  max-height: 200px; 
+  overflow-y: auto;
+  z-index: 10; 
 }
 
 .notes-container h3 {
-  margin: 0 0 0.5rem; /* Margin for heading */
-  font-size: 1.2rem; /* Font size for heading */
+  margin: 0 0 0.5rem; 
+  font-size: 1.2rem; 
 }
 
 .notes-container ul {
-  list-style-type: none; /* Remove default list styling */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0; 
 }
 
 .notes-container li {
-  padding: 0.5rem; /* Padding for each note */
-  border-bottom: 1px solid #eee; /* Light border between notes */
+  padding: 0.5rem; 
+  border-bottom: 1px solid #eee; 
 }
 
 .notes-container li:last-child {
-  border-bottom: none; /* Remove border for last note */
+  border-bottom: none; 
 }
 
 /*pin*/
 
 .search-marker {
   cursor: pointer;
-  transform: translate(-50%, -100%);  /* Center the pin point */
+  transform: translate(-50%, -100%);
 }
 
 .search-marker img {
-  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));  /* Optional: adds shadow */
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5)); 
 }
 
 .view-popup-container .maplibregl-popup-content {
@@ -260,7 +260,6 @@ html, body {
   margin: 4px 0;
 }
 
-/* Add this class to differentiate the edit popup */
 .edit-popup .maplibregl-popup-content {
   padding: 0 !important;
   border-radius: 12px !important;

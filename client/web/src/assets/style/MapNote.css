@@ -1,4 +1,3 @@
-/* Base popup styling */
 .custom-popup {
   background: white;
   border-radius: 12px;
@@ -334,7 +333,7 @@
 .dropdown-controls {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Space between +Add Tag and +Add Label */
+  gap: 12px; 
   margin-top: 16px;
 }
 
