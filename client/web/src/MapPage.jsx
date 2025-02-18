@@ -79,100 +79,86 @@ const MapPage = () => {
     };
   }, [currentStyle]);
 
-  const handleMapRightClick = (event) => {
-    event.preventDefault();
-    const { lng, lat } = event.lngLat;
   
-    const newMarker = { 
-      lng, 
-      lat, 
-      note: '',
-      id: Date.now(),
-      timestamp: new Date().toLocaleString() 
-    };
-  
-    // Create custom marker element
-    const markerElement = document.createElement('div');
-    markerElement.className = 'custom-marker';
-    const markerImg = document.createElement('img');
-    markerImg.src = dangereyepin;
-    markerImg.alt = 'Location marker';
-    markerElement.appendChild(markerImg);
-  
+const handleMapRightClick = (event) => {
+  event.preventDefault();
+  const { lng, lat } = event.lngLat;
+
+  const newMarker = { 
+    lng, 
+    lat, 
+    note: '',
+    tags: [],
+    hazardType: '',
+    id: Date.now(),
+    timestamp: new Date().toLocaleString() 
+  };
+
+  const markerElement = document.createElement('div');
+  markerElement.className = 'custom-marker';
+  const markerImg = document.createElement('img');
+  markerImg.src = dangereyepin;
+  markerImg.alt = 'Location marker';
+  markerElement.appendChild(markerImg);
+
+  const marker = new maplibregl.Marker({
+    element: markerElement,
+    anchor: 'bottom'
+  })
+  .setLngLat([lng, lat])
+  .addTo(mapRef.current);
+
+  const createAndShowPopup = () => {
     const popupContainer = document.createElement('div');
     const popup = new maplibregl.Popup({ 
       offset: [0, -20], 
       closeButton: false,
       closeOnClick: false,
-      maxWidth: '300px'
+      maxWidth: '300px',
+      className: 'edit-popup'
     }).setLngLat([lng, lat]);
-  
-    const marker = new maplibregl.Marker({
-      element: markerElement,
-      anchor: 'bottom'
-    })
-    .setLngLat([lng, lat])
-    .addTo(mapRef.current);
-  
-    const handleSave = (newText) => {
-      newMarker.note = newText;
+
+    const handleSave = (data) => {
+      newMarker.note = data.note;
+      newMarker.tags = data.tags;
+      newMarker.hazardType = data.hazardType;
+      
       setMarkers(prevMarkers => 
-        prevMarkers.map(m => m.id === newMarker.id ? {...m, note: newText} : m)
+        prevMarkers.map(m => m.id === newMarker.id ? {...m, ...data} : m)
       );
-      popup.remove(); // Close popup after saving
+      popup.remove();
     };
-  
+
     const handleClose = () => {
       ReactDOM.unmountComponentAtNode(popupContainer);
       popup.remove();
-  
-      // Only remove the marker if no note was added
+
       if (!newMarker.note.trim()) {
         marker.remove();
         setMarkers(prevMarkers => prevMarkers.filter(m => m.id !== newMarker.id));
       }
     };
-  
-    setMarkers(prevMarkers => [...prevMarkers, newMarker]);
-  
+
     ReactDOM.render(
       <MapNote 
         onClose={handleClose}
         onSave={handleSave}
+        initialNote={newMarker.note}
+        initialTags={newMarker.tags}
+        initialHazardType={newMarker.hazardType}
       />,
       popupContainer
     );
-  
+
     popup.setDOMContent(popupContainer)
       .addTo(mapRef.current);
-  
-    // Add click handler to show popup with contents when marker is clicked
-    markerElement.addEventListener('click', () => handleMarkerClick(newMarker));
   };
-  
-  // New function to handle left-click on marker
-  const handleMarkerClick = (markerData) => {
-    const existingPopup = document.querySelector('.marker-popup-content');
-    if (existingPopup) existingPopup.remove(); 
-  
-    const popupContent = document.createElement('div');
-    popupContent.className = 'marker-popup-content';
-    popupContent.innerHTML = `
-      <div class="marker-popup">
-        <h4>${markerData.note}</h4>
-        <p>Location: ${markerData.lng.toFixed(4)}, ${markerData.lat.toFixed(4)}</p>
-        <p>Added: ${markerData.timestamp}</p>
-      </div>
-    `;
-  
-    new maplibregl.Popup({ 
-      offset: [0, -20],
-      closeButton: true
-    })
-      .setLngLat([markerData.lng, markerData.lat])
-      .setDOMContent(popupContent)
-      .addTo(mapRef.current);
-  };
+
+  createAndShowPopup();
+  markerElement.onclick = createAndShowPopup;
+
+  setMarkers(prevMarkers => [...prevMarkers, newMarker]);
+};
   
 
   const handleSearch = async () => {

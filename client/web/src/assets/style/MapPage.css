@@ -193,3 +193,75 @@ html, body {
 .search-marker img {
   filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));  /* Optional: adds shadow */
 }
+
+.view-popup-container .maplibregl-popup-content {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.view-popup-container .maplibregl-popup-close-button {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+.view-popup-container .maplibregl-popup-close-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.view-popup {
+  background: white;
+  width: 280px;
+  padding: 16px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.view-popup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.view-popup-body {
+  padding: 0;
+}
+
+.view-popup-note {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.view-popup-details {
+  font-size: 12px;
+  color: #666;
+  margin: 4px 0;
+}
+
+/* Add this class to differentiate the edit popup */
+.edit-popup .maplibregl-popup-content {
+  padding: 0 !important;
+  border-radius: 12px !important;
+}
