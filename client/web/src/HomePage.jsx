@@ -8,8 +8,12 @@ import ambulanceIMG from './assets/imgs/ambulanceIMG.png'
 import roedIMG from './assets/imgs/roedIMG.png'
 import notesIMG from './assets/imgs/notesIMG.png'
 import treusuremapIMG from './assets/imgs/treusuremapIMG.png'
+import { useAuth } from './firebase/authContext.jsx'
 
 const HomePage = () =>{
+  const { currentUser } = useAuth();
+  
+
   return (
     <div className="homePageContainer">
         <HeaderComponent/>
