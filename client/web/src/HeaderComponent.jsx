@@ -1,8 +1,10 @@
 import './assets/style/HeaderComponent.css'
 import dangereyeLogo from './assets/imgs/dangereye-logo-1.png';
+import UserDropdownComponent from './UserDropdownComponent';
 
 
-const HeaderComponent = () => {
+const HeaderComponent = ({ currentUser = null }) => {
+
     
     return(
         <header className="header">
@@ -21,11 +23,18 @@ const HeaderComponent = () => {
                         </ul>
                     </div>
                 </div>
-                <div className="auth">
-                    <a href="#" className="menuRight-link menuRight-linkLine">Contact Us</a>
-                    <a href="/login" className="menuRight-link">Log In</a>
-                    <a href="/register" className="login-button">Sign up</a>
-                </div>
+
+                {
+                    (currentUser!=null)
+                    ?
+                    <UserDropdownComponent currentUser={currentUser}/>
+                    :
+                    <div className="auth">
+                        <a href="#" className="menuRight-link menuRight-linkLine">Contact Us</a>
+                        <a href="/login" className="menuRight-link">Log In</a>
+                        <a href="/register" className="login-button">Sign up</a>
+                    </div>
+                }
             </div>
         </header>
     )

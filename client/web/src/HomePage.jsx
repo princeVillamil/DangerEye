@@ -8,6 +8,7 @@ import ambulanceIMG from './assets/imgs/ambulanceIMG.png'
 import roedIMG from './assets/imgs/roedIMG.png'
 import notesIMG from './assets/imgs/notesIMG.png'
 import treusuremapIMG from './assets/imgs/treusuremapIMG.png'
+
 import { useAuth } from './firebase/authContext.jsx'
 
 const HomePage = () =>{
@@ -16,7 +17,7 @@ const HomePage = () =>{
 
   return (
     <div className="homePageContainer">
-        <HeaderComponent/>
+        <HeaderComponent currentUser={currentUser}/>
         <section className="hero-section">
           <div className="container">
             <div className="image-container">
