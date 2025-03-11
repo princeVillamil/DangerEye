@@ -3,14 +3,8 @@ import './assets/style/HeaderComponent.css';
 import dangereyeLogo from './assets/imgs/dangereye-logo-1.png';
 import UserDropdownComponent from './UserDropdownComponent';
 
-<<<<<<< HEAD
 
 const HeaderComponent = ({ currentUser = null }) => {
-
-    
-    return(
-=======
-const HeaderComponent = () => {
     const [openDropdown, setOpenDropdown] = useState(null);
 
     const toggleDropdown = (menu) => {
@@ -18,7 +12,6 @@ const HeaderComponent = () => {
     };
 
     return (
->>>>>>> main
         <header className="header">
             <div className="container">
                 <div className="logo">
@@ -79,8 +72,6 @@ const HeaderComponent = () => {
                         </ul>
                     </div>
                 </div>
-
-<<<<<<< HEAD
                 {
                     (currentUser!=null)
                     ?
@@ -92,13 +83,6 @@ const HeaderComponent = () => {
                         <a href="/register" className="login-button">Sign up</a>
                     </div>
                 }
-=======
-                <div className="auth">
-                    <a href="#" className="menuRight-link menuRight-linkLine">Contact Us</a>
-                    <a href="/login" className="menuRight-link">Log In</a>
-                    <a href="/register" className="login-button">Sign up</a>
-                </div>
->>>>>>> main
             </div>
         </header>
     )
