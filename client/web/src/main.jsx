@@ -13,12 +13,15 @@ import LoginPage from './LoginPage.jsx';
 import RegisterPage from './RegisterPage.jsx';
 import MapPage from './MapPage.jsx';
 import MapNote from './MapNote.jsx';
+import Forum from './Forum.jsx';
+import HelpCenter from './HelpCenter.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/manifesto" element={<ManifestoPage />} />
         <Route path="/release-note" element={<ReleaseNotesPage />} />
@@ -30,6 +33,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/map-note" element={<MapNote />}/>
+        <Route path="/forum" element={<Forum />}/>
+        <Route path="/help-center" element={<HelpCenter />}/>
       </Routes>
     </Router>
   </StrictMode>

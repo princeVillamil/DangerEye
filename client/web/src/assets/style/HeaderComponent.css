@@ -3,69 +3,95 @@
 
 * {
     font-family: 'Poppins', sans-serif;
-  }
-  
-  .header {
+    box-sizing: border-box; /* Ensures consistent sizing */
+    margin: 0;
+    padding: 0;
+}
+
+.header {
     padding: 16px;
     background-color: white;
     color: black;
-  }
-  
-  .header .container {
+    position: relative;
+    z-index: 1000;
+}
+
+.header .container {
     display: flex;
     max-width: 1920px;
     margin: 0 auto;
     justify-content: space-between;
     align-items: center;
     height: 64px;
-  }
-  .header .logo{
+}
+
+.header .logo {
     display: flex;
     align-items: center;
-  }
-  .header .logo a {
+}
+
+.header .logo a {
     display: flex;
     align-items: center;
     padding: 8px;
+}
 
-  }
-  
-  
-  .header .menu-links {
+/* Dropdown Menu */
+.header .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    list-style: none;
+    padding: 4px 0;
+    width: 100px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Show dropdown when hovering */
+.header .menu-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.header .menu-links {
     display: flex;
-    gap: 16px;
+    gap: 2px;
     list-style-type: none;
-  }
-  
-  .header .menu-link {
-    padding: 8px 16px;
+}
+
+.header .menu-link {
     text-decoration: none;
     border-bottom: 2px solid transparent;
     color: black;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
 
-  }
-  .header .menuRight-linkLine{
+.header .menuRight-linkLine {
     border-right: 1px solid;
     border-color: #6D2424;
+}
 
-  }
-  .header .menuRight-link{
+.header .menuRight-link {
     padding: 8px 16px;
     text-decoration: none;
     color: black;
-  }
-  
-  .header .menu-link:hover,
-  .header .menu-link.active {
+}
+
+.header .menu-link:hover,
+.header .menu-link.active {
     border-color: #6D2424;
     color: #6D2424;
-  }
-  
-  .header .auth {
+}
+
+.header .auth {
     display: flex;
-  }
-  
-  .header .login-button {
+}
+
+.header .login-button {
     padding: 12px 32px;
     font-weight: 600;
     background-color: #6D2424;
@@ -74,15 +100,15 @@
     border-radius: 38px;
     cursor: pointer;
     text-decoration: none;
-  }
-  
-  .header .login-button:hover {
-    background-color: #6D2424;
-  }
-  
-  @media (max-width: 1024px) {
+}
+
+.header .login-button:hover {
+    background-color: #8B2A2A;
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 1024px) {
     .header .menu {
-      display: none;
+        display: none;
     }
-  }
-  
+}

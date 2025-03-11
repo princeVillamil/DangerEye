@@ -1,10 +1,15 @@
-import './assets/style/HeaderComponent.css'
+import { useState } from 'react';
+import './assets/style/HeaderComponent.css';
 import dangereyeLogo from './assets/imgs/dangereye-logo-1.png';
 
-
 const HeaderComponent = () => {
-    
-    return(
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+    const toggleDropdown = (menu) => {
+        setOpenDropdown(openDropdown === menu ? null : menu);
+    };
+
+    return (
         <header className="header">
             <div className="container">
                 <div className="logo">
@@ -14,13 +19,58 @@ const HeaderComponent = () => {
 
                     <div className="menu">
                         <ul className="menu-links">
-                        <li><a href="#" className="menu-link active">home</a></li>
-                        <li><a href="#" className="menu-link">apps</a></li>
-                        <li><a href="#" className="menu-link">resources</a></li>
-                        <li><a href="#" className="menu-link">about</a></li>
+                            <li 
+                                className="menu-item"
+                                onClick={() => toggleDropdown('home')}
+                            >
+                                <a href="/home" className="menu-link">Home</a>
+                            </li>
+
+                            <li 
+                                className="menu-item"
+                                onClick={() => toggleDropdown('apps')}
+                            >
+                                <a href="#" className="menu-link">Apps</a>
+                                {openDropdown === 'apps' && (
+                                    <ul className="dropdown">
+                                        <li><a href="#">Android & IOS</a></li>
+                                        <li><a href="#">Dekstop</a></li>
+                                        <li><a href="#">Web Explorer</a></li>
+                                    </ul>
+                                )}
+                            </li>
+
+                            <li 
+                                className="menu-item"
+                                onClick={() => toggleDropdown('resources')}
+                            >
+                                <a href="#" className="menu-link">Resources</a>
+                                {openDropdown === 'resources' && (
+                                    <ul className="dropdown">
+                                        <li><a href="/forum">Forum Center</a></li>
+                                        <li><a href="/help-center">Help Center</a></li>
+                                    </ul>
+                                )}
+                            </li>
+
+                            <li
+                            className="menu-item"
+                            onClick={() => toggleDropdown('about')}
+                            >
+                                
+                                <a href="#" className="menu-link">About</a>
+                            {openDropdown === 'about' && (
+                                <ul className='dropdown'>
+                                     <li><a href="/about">About DangerEye</a></li>
+                                     <li><a href="/manifesto">Manifesto</a></li>
+                                     <li><a href="/release-note">Release Notes</a></li>
+                                </ul>
+                            )}
+                            </li>
                         </ul>
                     </div>
                 </div>
+
                 <div className="auth">
                     <a href="#" className="menuRight-link menuRight-linkLine">Contact Us</a>
                     <a href="/login" className="menuRight-link">Log In</a>
@@ -31,4 +81,4 @@ const HeaderComponent = () => {
     )
 }
 
-export default HeaderComponent
+export default HeaderComponent;

@@ -2,8 +2,9 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  width: 300px;
-  padding: 16px;
+  width: 450px; 
+  max-width: 100%;
+  padding: 24px; 
   font-family: 'Poppins', sans-serif;
   color: #333;
   animation: popup-fade-in 0.2s ease-out;
@@ -171,10 +172,10 @@
 /* Action buttons */
 .popup-actions {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   justify-content: flex-end;
   padding: 0 8px;
-  margin-top: 12px;
+  margin-top: 20px;
 }
 
 .popup-actions button {
@@ -303,7 +304,7 @@
   transform: scaleY(0);
   transform-origin: top;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  padding: 8px;
+  padding: 8px 12px;
 }
 
 .dropdown-menu.show {
@@ -313,7 +314,7 @@
 
 /* Dropdown Item */
 .dropdown-item {
-  padding: 6px 8px;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
