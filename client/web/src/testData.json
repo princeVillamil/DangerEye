@@ -1,0 +1,123 @@
+[
+    {
+      "lng": "120.800000",
+      "lat": "13.600000",
+      "note": "Roadblock due to fallen tree",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402203,
+      "userID": "11111111",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 50
+    },
+    {
+      "lng": "122.800000",
+      "lat": "15.600000",
+      "note": "Flooded area, avoid",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402204,
+      "userID": "11111112",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 42
+    },
+    {
+      "lng": "124.800000",
+      "lat": "17.600000",
+      "note": "Slippery road due to oil spill",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402205,
+      "userID": "11111113",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 35
+    },
+    {
+      "lng": "126.800000",
+      "lat": "19.600000",
+      "note": "Construction work ahead",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402206,
+      "userID": "11111114",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 28
+    },
+    {
+      "lng": "128.800000",
+      "lat": "21.600000",
+      "note": "Heavy traffic due to accident",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402207,
+      "userID": "11111115",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 55
+    },
+    {
+      "lng": "130.800000",
+      "lat": "23.600000",
+      "note": "Potholes on the road",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402208,
+      "userID": "11111110",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 31
+    },
+    {
+      "lng": "132.800000",
+      "lat": "25.600000",
+      "note": "Traffic light malfunctioning",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402209,
+      "userID": "11111117",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 40
+    },
+    {
+      "lng": "134.800000",
+      "lat": "27.600000",
+      "note": "Minor landslide blocking one lane",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402210,
+      "userID": "11111118",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 47
+    },
+    {
+      "lng": "136.800000",
+      "lat": "29.600000",
+      "note": "Overhead sign about to fall",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402211,
+      "userID": "11111119",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 36
+    },
+    {
+      "lng": "138.800000",
+      "lat": "31.600000",
+      "note": "Power lines down, avoid area",
+      "tags": ["Emergency", "Caution", "Warning"],
+      "hazardType": "hazard",
+      "id": 1742085402212,
+      "userID": "11111120",
+      "timestamp": "3/10/2025, 8:36:42 AM",
+      "likes": 60
+    },
+    {
+        "lng": "121.23895654063034",
+        "lat": "16.257379873573626",
+        "note": "Test4",
+        "tags": ["Emergency", "Caution", "Warning"],
+        "hazardType": "hazard",
+        "id": 1741965045571,
+        "userID": "h2FEoEKYy7aC7hdaFJoDxj94Gga2",
+        "timestamp": "3/17/2025, 8:49:00 AM",
+        "likes": 0
+      }
+  ]

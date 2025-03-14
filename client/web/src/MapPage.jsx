@@ -7,8 +7,12 @@ import './assets/style/MapPage.css';
 import dangereyeLogo from './assets/imgs/dangereye-logo-1.png';
 import dangereyepin from './assets/imgs/dangereye-red-pin.png';
 import { useNavigate } from 'react-router-dom';
+import hazardData from './testData.json';
+import { useAuth } from './firebase/authContext';
+
 
 const MapPage = () => {
+  const {currentUser} = useAuth()
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const [userLocation, setUserLocation] = useState(null);
@@ -18,19 +22,70 @@ const MapPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [markers, setMarkers] = useState([]);
-  const [loggedMarkers, setLogedMarkers] = useState([
-    {    
-      lng: '120.9097352828901',
-      lat: '13.754666701568723' ,
-      note: 'TestLogged',
-      tags: [ "Emergency", "Caution", "Warning" ],
-      hazardType: 'hazard',
-      id: 1742085402203,
-      timestamp: "3/16/2025, 8:36:42 AM" 
-    }
-  ]);//Database logged markers
+  const [loggedMarkers, setLoggedMarkers] = useState(hazardData)
   const searchTimeoutRef = useRef(null);
   const navigate = useNavigate();
+/*
+import React, { useState, useEffect } from "react";
+
+const TimeAgo = ({ timestamp }) => {
+  const [timeAgo, setTimeAgo] = useState("");
+
+  useEffect(() => {
+    const updateTimeAgo = () => {
+      const createdAt = new Date(timestamp);
+      const now = new Date();
+      const diffInSeconds = Math.floor((now - createdAt) / 1000);
+
+      let timeString;
+      if (diffInSeconds < 60) {
+        timeString = ${diffInSeconds} seconds ago;
+      } else if (diffInSeconds < 3600) {
+        timeString = ${Math.floor(diffInSeconds / 60)} minutes ago;
+      } else if (diffInSeconds < 86400) {
+        timeString = ${Math.floor(diffInSeconds / 3600)} hours ago;
+      } else {
+        timeString = ${Math.floor(diffInSeconds / 86400)} days ago;
+      }
+
+      setTimeAgo(timeString);
+    };
+
+    updateTimeAgo();
+    const interval = setInterval(updateTimeAgo, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, [timestamp]);
+
+  return <span>{timeAgo}</span>;
+};
+
+// Example usage
+export default function App() {
+  return <TimeAgo timestamp="3/16/2025, 8:36:42 AM" />;
+}
+*/
+
+
+  
+      const formatTimestamp = (timestamp) => {
+        const createdAt = new Date(timestamp);
+        const now = new Date();
+        const diffInSeconds = Math.floor((now - createdAt) / 1000);
+  
+        let timeString;
+        if (diffInSeconds < 60) {
+          timeString = `${diffInSeconds} seconds ago`;
+        } else if (diffInSeconds < 3600) {
+          timeString = `${Math.floor(diffInSeconds / 60)} minutes ago`;
+        } else if (diffInSeconds < 86400) {
+          timeString = `${Math.floor(diffInSeconds / 3600)} hours ago`;
+        } else {
+          timeString = `${Math.floor(diffInSeconds / 86400)} days ago`;
+        }
+  
+        return timeString;
+      };
 
   const mapStyles = {
     streets: 'https://api.maptiler.com/maps/streets-v2/style.json?key=M5ISu0vuXHGPPTeGHPw2',
@@ -47,12 +102,13 @@ const MapPage = () => {
       zoom: userLocation ? 19 : 2,
     });
 
+    console.log(currentUser, "test 1")
     mapRef.current = map;
+
 
     loggedMarkers.forEach(x=>{
       if(!mapRef.current) return
 
-      console.log(x)
       const markerElement = document.createElement('div');
       markerElement.className = 'custom-marker';
       const markerImg = document.createElement('img');
@@ -101,7 +157,6 @@ const MapPage = () => {
             setMarkers(prevMarkers => prevMarkers.filter(m => m.id !== x.id));
           }
         };
-    
         ReactDOM.render(
           <MapNote 
             onClose={handleClose}
@@ -109,6 +164,12 @@ const MapPage = () => {
             initialNote={x.note}
             initialTags={x.tags}
             initialHazardType={x.hazardType}
+            currentUser = {currentUser}
+            id = {x.id}
+            userID = {x.userID}
+            timestamp = {formatTimestamp(x.timestamp)}
+            likes = {x.likes}
+            isNew = {false}
           />,
           popupContainer
         );
@@ -171,11 +232,13 @@ const handleMapRightClick = (event) => {
   const newMarker = { 
     lng, 
     lat, 
-    note: '',
+    note: "",
     tags: [],
-    hazardType: '',
+    hazardType: "",
     id: Date.now(),
-    timestamp: new Date().toLocaleString() 
+    userID: currentUser.uid,
+    timestamp: new Date().toLocaleString(),
+    likes: 0
   };
 
   const markerElement = document.createElement('div');
@@ -232,12 +295,15 @@ const handleMapRightClick = (event) => {
         initialNote={newMarker.note}
         initialTags={newMarker.tags}
         initialHazardType={newMarker.hazardType}
+        isNew = {true}
+        
       />,
       popupContainer
     );
 
     popup.setDOMContent(popupContainer)
       .addTo(mapRef.current);
+    console.log(newMarker)
   };
 
   createAndShowPopup();

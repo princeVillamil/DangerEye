@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors()); //need to communicate on diff PORT
 
-const admin = require("firebase-admin")
+const admin = require("firebase-admin");
 // const credential = require("./firebaseServiceAccount.json")
 const credential = {
     type: "service_account",
@@ -20,6 +20,7 @@ const credential = {
 admin.initializeApp({
     credential: admin.credential.cert(credential),
 });
+
 
 const db = admin.firestore();
 
@@ -37,32 +38,6 @@ if (!token) {
         return res.status(403).json({ error: "Invalid or expired token" });
     }
 }
-
-/*
-
-given firebase data
-{
-  "uid": "abcdefgh1234567",
-  "email": "test@example.com",
-  "emailVerified": false,
-  "displayName": null,
-  "photoURL": null,
-  "metadata": {
-    "creationTime": "Wed, 12 Mar 2025 10:00:00 GMT",
-    "lastSignInTime": "Wed, 12 Mar 2025 10:00:00 GMT"
-  },
-  "providerData": [
-    {
-      "providerId": "password",
-      "uid": "test@example.com",
-      "displayName": null,
-      "email": "test@example.com",
-      "photoURL": null
-    }
-  ]
-}
-
-*/
 
 
 
@@ -104,6 +79,38 @@ app.get("/api/users/:uid", async (req, res) => {
   }
 });
 
+app.post("/api/users/add", async (req, res) => {
+    const { uid, displayName, email, photoURL, emailVerified, metadata } = req.body;
+  
+    if (!uid || !email) {
+      return res.status(400).json({ error: "Missing required user data" });
+    }
+  
+    try {
+      // Convert metadata timestamp to readable date
+    //   const createdAt = new Date(parseInt(metadata.createdAt)).toISOString();
+    //   const lastLoginAt = new Date(parseInt(metadata.lastLoginAt)).toISOString();
+  
+      const userRef = db.collection("users").doc(uid);
+      await userRef.set(
+        {
+          uid,
+          displayName: displayName || null,
+          email,
+          photoURL: photoURL || null,
+          emailVerified,
+        //   createdAt,
+        //   lastLoginAt,
+          createdReportsID: []
+        },
+        { merge: true } // Merge to update existing user
+      );
+      console.log("got this far")
+      res.status(200).json({ message: "User stored successfully", uid });
+    } catch (error) {
+      res.status(500).json({ error: "Error storing user", details: error.message });
+    }
+  });
 
 
 // APIs //

@@ -15,6 +15,7 @@ const RegisterPage = () =>{
   //add later
   const [errorMessage, setErrorMessage] = useState('')
 
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const passwordRegex = /^(?=.*\d).{6,}$/; // Ensures at least 6 chars & one digit

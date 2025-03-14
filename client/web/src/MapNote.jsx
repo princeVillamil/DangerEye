@@ -14,7 +14,7 @@ const TAGS = [
   'Danger', 'Risk', 'Report', 'Update', 'Notice'
 ];
 
-const MapNote = ({ onClose, onSave, initialNote = '', initialTags = [], initialHazardType = '' }) => {
+const MapNote = ({isNew, likes, timestamp, id, userID ,onClose, onSave, initialNote = '', initialTags = [], initialHazardType = '', currentUser = null }) => {
   const [isEditing, setIsEditing] = useState(!initialNote);
   const [selectedTags, setSelectedTags] = useState(initialTags);
   const [hazardType, setHazardType] = useState(initialHazardType);
@@ -89,7 +89,7 @@ const MapNote = ({ onClose, onSave, initialNote = '', initialTags = [], initialH
     <div className="custom-popup">
       <div className="popup-header">
         <div className="popup-user-icon"></div>
-        <span className="popup-username">user109200000</span>
+        <span className="popup-username">user{id}</span>
         <button 
           type="button" 
           className="popup-close-btn" 
@@ -181,29 +181,59 @@ const MapNote = ({ onClose, onSave, initialNote = '', initialTags = [], initialH
         </div>
 
         <div className="popup-actions">
-          {!isEditing ? (
-            <button 
-              className="edit-btn"
-              onClick={() => setIsEditing(true)}
-            >
-              Edit
-            </button>
-          ) : (
-            <>
+          {(isNew) ? 
+          (<>
+            {!isEditing ? (
               <button 
-                className="save-btn"
-                onClick={handleSaveClick}
+                className="edit-btn"
+                onClick={() => setIsEditing(true)}
               >
-                Save
+                Edit
               </button>
-              <button 
-                className="discard-btn"
-                onClick={handleDiscardClick}
-              >
-                Discard
-              </button>
-            </>
-          )}
+            ) : (
+              <>
+                <button 
+                  className="save-btn"
+                  onClick={handleSaveClick}
+                >
+                  Save
+                </button>
+                <button 
+                  className="discard-btn"
+                  onClick={handleDiscardClick}
+                >
+                  Discard
+                </button>
+              </>
+            )}
+          </>)
+          :
+          (<>
+            {(currentUser.uid == userID) ? (
+              <>
+              {!isEditing ? (
+                <button className="edit-btn" onClick={() => setIsEditing(true)}>
+                  Edit
+                </button>
+              ) : (
+                <>
+                  <button className="save-btn" onClick={handleSaveClick}>
+                    Save
+                  </button>
+                  <button className="discard-btn" onClick={handleDiscardClick}>
+                    Discard
+                  </button>
+                </>
+              )} </>
+              ):(
+                <>
+                  <button className='save-btn'>{timestamp}</button>
+                  <button className="save-btn">
+                    Likes: {likes}
+                  </button>
+                </>
+              )}
+          </>)}
         </div>
       </div>
     </div>
