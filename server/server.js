@@ -88,6 +88,23 @@ app.post("/api/users", authenticateToken, async (req, res) => {
     }
 });
 
+app.get("/api/users/:uid", async (req, res) => {
+  const { uid } = req.params; // Get UID from URL
+
+  try {
+      const userDoc = await db.collection("users").doc(uid).get();
+
+      if (!userDoc.exists) {
+          return res.status(404).json({ error: "User not found" });
+      }
+
+      res.json({ uid: userDoc.id, ...userDoc.data() });
+  } catch (error) {
+      res.status(500).json({ error: "Error retrieving user", details: error.message });
+  }
+});
+
+
 
 // APIs //
 

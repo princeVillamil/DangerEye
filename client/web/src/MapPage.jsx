@@ -18,6 +18,17 @@ const MapPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [markers, setMarkers] = useState([]);
+  const [loggedMarkers, setLogedMarkers] = useState([
+    {    
+      lng: '120.9097352828901',
+      lat: '13.754666701568723' ,
+      note: 'TestLogged',
+      tags: [ "Emergency", "Caution", "Warning" ],
+      hazardType: 'hazard',
+      id: 1742085402203,
+      timestamp: "3/16/2025, 8:36:42 AM" 
+    }
+  ]);//Database logged markers
   const searchTimeoutRef = useRef(null);
   const navigate = useNavigate();
 
@@ -37,6 +48,79 @@ const MapPage = () => {
     });
 
     mapRef.current = map;
+
+    loggedMarkers.forEach(x=>{
+      if(!mapRef.current) return
+
+      console.log(x)
+      const markerElement = document.createElement('div');
+      markerElement.className = 'custom-marker';
+      const markerImg = document.createElement('img');
+      markerImg.src = dangereyepin;
+      markerImg.alt = 'Location marker';
+      markerElement.appendChild(markerImg);
+
+
+      
+      const marker = new maplibregl.Marker({
+          element: markerElement,
+          anchor: 'bottom'
+        })
+        .setLngLat([x.lng, x.lat])
+        .addTo(mapRef.current);
+
+      const createAndShowPopup = () => {
+        const popupContainer = document.createElement('div');
+        const popup = new maplibregl.Popup({ 
+          offset: [0, -20], 
+          closeButton: false,
+          closeOnClick: false,
+          maxWidth: '300px',
+          className: 'edit-popup'
+        }).setLngLat([x.lng, x.lat]);
+    
+        const handleSave = (data) => {
+          x.note = data.note;
+          x.tags = data.tags;
+          x.hazardType = data.hazardType;
+          
+          setMarkers(prevMarkers => 
+            prevMarkers.map(m => m.id === x.id ? {...m, ...data} : m)
+          );
+          popup.remove();
+          console.log("check",x)
+    
+        };
+    
+        const handleClose = () => {
+          ReactDOM.unmountComponentAtNode(popupContainer);
+          popup.remove();
+    
+          if (!x.note.trim()) {
+            marker.remove();
+            setMarkers(prevMarkers => prevMarkers.filter(m => m.id !== x.id));
+          }
+        };
+    
+        ReactDOM.render(
+          <MapNote 
+            onClose={handleClose}
+            onSave={handleSave}
+            initialNote={x.note}
+            initialTags={x.tags}
+            initialHazardType={x.hazardType}
+          />,
+          popupContainer
+        );
+    
+        popup.setDOMContent(popupContainer)
+          .addTo(mapRef.current);
+      };
+
+      createAndShowPopup();
+      markerElement.onclick = createAndShowPopup;
+
+    })
 
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -127,6 +211,8 @@ const handleMapRightClick = (event) => {
         prevMarkers.map(m => m.id === newMarker.id ? {...m, ...data} : m)
       );
       popup.remove();
+      console.log("check",newMarker)
+
     };
 
     const handleClose = () => {
@@ -158,6 +244,7 @@ const handleMapRightClick = (event) => {
   markerElement.onclick = createAndShowPopup;
 
   setMarkers(prevMarkers => [...prevMarkers, newMarker]);
+  console.log('marker list')
 };
   
 

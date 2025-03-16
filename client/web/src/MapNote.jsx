@@ -89,7 +89,7 @@ const MapNote = ({ onClose, onSave, initialNote = '', initialTags = [], initialH
     <div className="custom-popup">
       <div className="popup-header">
         <div className="popup-user-icon"></div>
-        <span className="popup-username">user1092</span>
+        <span className="popup-username">user109200000</span>
         <button 
           type="button" 
           className="popup-close-btn" 
