@@ -20,9 +20,14 @@ const MapNote = ({isNew, likes, timestamp, id, userID ,onClose, onSave, initialN
   const [hazardType, setHazardType] = useState(initialHazardType);
   const [isLabelDropdownOpen, setIsLabelDropdownOpen] = useState(false);
   const [isTagDropdownOpen, setIsTagDropdownOpen] = useState(false);
+  const [newLikes, setNewLikes] = useState(likes)
+  const handleLike = () => {
+    setNewLikes((prevLikes) => prevLikes + 1);
+  };
   const textRef = useRef(null);
   const labelDropdownRef = useRef(null);
   const tagDropdownRef = useRef(null);
+  
 
   useEffect(() => {
     if (textRef.current && initialNote && !isEditing) {
@@ -228,8 +233,8 @@ const MapNote = ({isNew, likes, timestamp, id, userID ,onClose, onSave, initialN
               ):(
                 <>
                   <button className='save-btn'>{timestamp}</button>
-                  <button className="save-btn">
-                    Likes: {likes}
+                  <button className="save-btn" onClick={handleLike}>
+                    Likes: {newLikes}
                   </button>
                 </>
               )}

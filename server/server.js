@@ -63,6 +63,7 @@ app.post("/api/users", authenticateToken, async (req, res) => {
     }
 });
 
+//Gets users using UID
 app.get("/api/users/:uid", async (req, res) => {
   const { uid } = req.params; // Get UID from URL
 
@@ -79,6 +80,8 @@ app.get("/api/users/:uid", async (req, res) => {
   }
 });
 
+
+//adds new users to firestore
 app.post("/api/users/add", async (req, res) => {
     const { uid, displayName, email, photoURL, emailVerified, metadata } = req.body;
   
@@ -111,7 +114,61 @@ app.post("/api/users/add", async (req, res) => {
       res.status(500).json({ error: "Error storing user", details: error.message });
     }
   });
+//adds pinnedLocation to firestore db
+app.post("/api/pinnedCollection/add", async (req, res) => {
+  const { lng, lat, note, tags, hazardType, id, userID, timestamp, likes } = req.body;
 
+  if (!id || !lng || !lat || !userID) {
+    return res.status(400).json({ error: "Missing required hazard data" });
+  }
+
+  try {
+    const pinRef = db.collection("pinnedCollection").doc(id.toString());
+    await pinRef.set(
+      {
+        lng,
+        lat,
+        note: note || "",
+        tags: tags || [],
+        hazardType: hazardType || "unknown",
+        id,
+        userID,
+        timestamp: timestamp || new Date().toISOString(),
+        likes: likes || 0,
+      },
+      { merge: true } // Merge to update existing pins
+    );
+
+    console.log("Hazard pinned successfully!");
+    res.status(200).json({ message: "Hazard pinned successfully", id });
+  } catch (error) {
+    res.status(500).json({ error: "Error pinning hazard", details: error.message });
+  }
+});
+//Get all documents in pinnedCollections
+app.get("/api/pinnedCollection", async (req, res) => {
+  try {
+    const pinnedCollectionRef = db.collection("pinnedCollection");
+    const snapshot = await pinnedCollectionRef.get();
+
+    if (snapshot.empty) {
+      return res.status(404).json({ message: "No pinned hazards found" });
+    }
+
+    const pins = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json(pins);
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving pinned hazards", details: error.message });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
 
 // APIs //
 
